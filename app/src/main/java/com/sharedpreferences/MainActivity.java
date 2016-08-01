@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et_input;
-    private Button btn_save;
+    private Button btn_save, btn_show_data;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor sharedPreferencesEditor;
@@ -24,9 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //pull views
         et_input = (EditText) findViewById(R.id.et_input);
         btn_save = (Button) findViewById(R.id.btn_save);
+        btn_show_data = (Button) findViewById(R.id.btn_show_data);
 
         //set listeners
         btn_save.setOnClickListener(this);
+        btn_show_data.setOnClickListener(this);
 
         //get shared preference object STEP-1
         sharedPreferences = getSharedPreferences(Constant.ME, MODE_PRIVATE);
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //get editor sp object STEP -2
         if (null != sharedPreferences)
             sharedPreferencesEditor = sharedPreferences.edit();
-
     }
 
     @Override
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn_save:
                 String input = et_input.getText().toString();
-                if (!"".equals(input.trim())) {
+                if ("".equals(input.trim())) {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_empty_input), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -50,6 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sharedPreferencesEditor.putString(Constant.preference.DATA, input);
                 //save changes STEP- 4
                 sharedPreferencesEditor.apply();
+
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.text_data_stored), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_show_data:
+                RetrieveActivity.start(this);
                 break;
         }
     }

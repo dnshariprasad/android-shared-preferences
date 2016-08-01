@@ -15,7 +15,7 @@ public class RetrieveActivity extends AppCompatActivity {
         tvRetrieve = (TextView) findViewById(R.id.tv_retrieve);
         //get sp object
         SharedPreferences sharedPreferences = getSharedPreferences(Constant.ME, MODE_PRIVATE);
-        //get value by key with sp
+        //get value by key with sp STEP - 5
         tvRetrieve.setText(sharedPreferences.getString(Constant.preference.DATA, getResources().getString(R.string.text_no_data)));
     }
 }

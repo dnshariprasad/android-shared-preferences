@@ -21,15 +21,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //pull views
         et_input = (EditText) findViewById(R.id.et_input);
         btn_save = (Button) findViewById(R.id.btn_save);
 
+        //set listeners
         btn_save.setOnClickListener(this);
 
-        //get shared preference object
+        //get shared preference object STEP-1
         sharedPreferences = getSharedPreferences(Constant.ME, MODE_PRIVATE);
 
-        //get editor sp object
+        //get editor sp object STEP -2
         if (null != sharedPreferences)
             sharedPreferencesEditor = sharedPreferences.edit();
 
@@ -39,13 +41,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_save:
-
                 String input = et_input.getText().toString();
                 if (!"".equals(input.trim())) {
-                    Toast.makeText(MainActivity.this, "Input is empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_empty_input), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //store data STEP - 3
                 sharedPreferencesEditor.putString(Constant.preference.DATA, input);
+                //save changes STEP- 4
+                sharedPreferencesEditor.apply();
                 break;
         }
     }

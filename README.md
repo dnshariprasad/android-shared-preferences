@@ -8,7 +8,7 @@ SharedPreferences sharedPreferences = getSharedPreferences(Constant.ME, MODE_PRI
 if (null != sharedPreferences)
 sharedPreferencesEditor = sharedPreferences.edit();
 ```
-* STEP - 3 (Steore data to SP through editor)
+* STEP - 3 (Store data to SP through editor)
 ```
 sharedPreferencesEditor.putString(Constant.preference.DATA, input);
 ```
